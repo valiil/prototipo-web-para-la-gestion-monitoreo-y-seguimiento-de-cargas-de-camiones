@@ -6,14 +6,12 @@ router = APIRouter()
 
 nuevo_usuario = UsuarioController()
 
-
 @router.post("/create_usuario")
 async def create_usuario(usuario: Usuario):
     rpta = nuevo_usuario.create_usuario(usuario)
     return rpta
 
-
-@router.get("/get_usuario/{usuario_id}",response_model=Usuario)
+@router.get("/get_usuario/{usuario_id}", response_model=Usuario)
 async def get_usuario(usuario_id: int):
     rpta = nuevo_usuario.get_usuario(usuario_id)
     return rpta
@@ -31,4 +29,8 @@ async def update_usuario(usuario_id: int, usuario: Usuario):
 @router.delete("/delete_usuario/{usuario_id}")
 async def delete_usuario(usuario_id: int):
     rpta = nuevo_usuario.delete_usuario(usuario_id)
-    return rpta
+    
+    if not rpta:
+        raise HTTPException(status_code=404, detail="Usuario no encontrado o ya inactivo")
+    
+    return {"message": "Usuario inactivado exitosamente"}

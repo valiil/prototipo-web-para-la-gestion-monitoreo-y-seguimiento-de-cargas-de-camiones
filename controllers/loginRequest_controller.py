@@ -11,16 +11,13 @@ class LoginRequestController:
             cursor = conn.cursor()
             
             # Verificar las credenciales del usuario
-            cursor.execute("""
-                SELECT id_perfil FROM usuario 
-                WHERE usuario = %s AND contrasena = %s
-            """, (login_request.usuario, login_request.contrasena))
+            cursor.execute("""SELECT id_perfil, nombre FROM usuario WHERE usuario = %s AND contrasena = %s""",
+                           (login_request.usuario, login_request.contrasena))
             
             result = cursor.fetchone()
 
             if result:
-                # Obtener el id_perfil
-                id_perfil = result[0]
+                id_perfil, nombre = result
                 
                 # Determinar el tipo de usuario
                 if id_perfil == 1:
@@ -29,10 +26,17 @@ class LoginRequestController:
                     tipo_usuario = "Transportador"
                 elif id_perfil == 3:
                     tipo_usuario = "Empresa"
+                elif id_perfil == 4:
+                    tipo_usuario = "Operador Logistico"
                 else:
                     raise HTTPException(status_code=400, detail="Tipo de usuario no válido")
                 
-                return {"mensaje": f"Credenciales válidas para {tipo_usuario}"}
+                return {
+                    "mensaje": f"Credenciales válidas para {tipo_usuario}",
+                    "tipo_usuario": tipo_usuario,
+                    "nombre": nombre,
+                    "id_perfil": id_perfil  # Asegúrate de incluir el id_perfil en la respuesta
+                }
             else:
                 raise HTTPException(status_code=401, detail="Credenciales inválidas")
 

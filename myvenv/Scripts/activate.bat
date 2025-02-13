@@ -8,11 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-<<<<<<< HEAD
-set VIRTUAL_ENV=C:\Users\Aguacate\Downloads\FAST-API 1\app\myvenv
-=======
-set VIRTUAL_ENV=C:\Users\Aguacate\Downloads\FAST-API 1\myvenv
->>>>>>> eca58869297c519572cb1948b374023d6aa732dd
+set VIRTUAL_ENV=C:\Users\Aguacate\OneDrive - Unibarranquilla\TECNOLOGO\1 PRIMER CUATRIMESTRE\DESARROLLO DE SOFTWARE ORIENTADO A OBJETOS\FAST-API 1\app\myvenv
 
 if not defined PROMPT set PROMPT=$P$G
 

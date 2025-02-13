@@ -114,8 +114,9 @@ class TransporteController:
                     'alto': data[6],
                     'ancho': data[7],
                     'largo': data[8],
-                    'ano': data[9],
-                    'id_perfil': data[10]
+                    'id_perfil': data[9],
+                    'ano': data[10]
+                    
                 }
                 payload.append(content)
             

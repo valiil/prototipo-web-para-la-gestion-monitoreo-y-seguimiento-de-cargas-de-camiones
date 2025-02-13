@@ -9,7 +9,12 @@ from routes.carga_routes import router as carga_router
 from routes.loginRequest_routes import router as loginRequest_router
 from routes.cargaTransportador_routes import router as cargaTransportador_router
 from routes.cargaEmpresa_routes import router as cargaEmpresa_router
+from routes.envio_routes import router as envio_router
+from routes.token_routes import router as token_router
+from routes.modulo_routes import router as modulo_routes
 from fastapi.middleware.cors import CORSMiddleware
+
+
 
 app = FastAPI()
 
@@ -18,11 +23,12 @@ origins = [
     #"https://localhost.tiangolo.com",
     "http://localhost"
     #"http://localhost:8080",
+    "http://localhost:5173"
 ]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["http://localhost:5173"],  
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -38,6 +44,11 @@ app.include_router(carga_router)
 app.include_router(loginRequest_router)  
 app.include_router(cargaTransportador_router) 
 app.include_router(cargaEmpresa_router) 
+app.include_router(envio_router)
+app.include_router(token_router)
+app.include_router(modulo_routes)
+
+
 
 if __name__ == "__main__":
    import uvicorn
